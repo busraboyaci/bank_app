@@ -1,5 +1,6 @@
 package com.example.enqurachallenge.app
 
+import android.content.Context
 import android.util.Log
 import androidx.compose.animation.Crossfade
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -19,6 +20,7 @@ import com.example.enqurachallenge.screens.SelectedBankInfoScreen
 fun ListBanksApp(
     viewModel: BankListViewModel,
     onEvent: (BankEvent) -> Unit,
+    context: Context
 ){
     val state by viewModel.state.collectAsState() // ViewModel'den state'i al
     val selectedItem = state.selectedItem // Seçili öğe
@@ -31,7 +33,7 @@ fun ListBanksApp(
                 Log.d("selectedItem", state.selectedItem.toString())
 
                 selectedItem?.let {
-                    SelectedBankInfoScreen(selectedItem)
+                    SelectedBankInfoScreen(context = context, selectedBank = selectedItem)
                 }
             }
 

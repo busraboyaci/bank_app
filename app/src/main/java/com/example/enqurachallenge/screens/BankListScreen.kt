@@ -51,7 +51,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.enqurachallenge.BankEvent
 import com.example.enqurachallenge.R
-import com.example.enqurachallenge.components.BankSearchBar
 import com.example.enqurachallenge.components.CircularProgressIndicatorWithDelay
 import com.example.enqurachallenge.data.viewmodel.BankListViewModel
 import com.example.enqurachallenge.navigate.BankListAppRouter
@@ -97,7 +96,6 @@ fun BankListScreen(
             }
 
             else -> {
-//                BankSearchBar(searchQuery = searchQuery, active = active, items = items banks)
                 SearchBar(
                     colors = colors,
                     modifier = Modifier
@@ -162,10 +160,6 @@ fun BankListScreen(
                         }
                     }
                 }
-//                Spacer(modifier = Modifier.height(0.dp))
-
-//                Text(text = "bank list size: ${banks.value}")
-                // Display the list of banks
                 // Filtreleme işlemi
                 val filteredBanks = if (searchQuery.isNotBlank() && banks.value != null) {
                     val filteredList = banks.value.orEmpty().filter { bank ->
@@ -227,17 +221,13 @@ fun BankListScreen(
                                                 .size(48.dp)
                                                 .padding(end = 10.dp)
                                         )
-                                        Column(
-//                                            verticalArrangement = Arrangement.Bottom
-                                        ) {
+                                        Column{
                                             Text(
                                                 text = "${bank.city}, ",
                                                 fontSize = 20.sp,
                                                 textAlign = TextAlign.Start,
                                                 color = Navy,
                                                 modifier = Modifier,
-                                                //                                            .weight(1f) // Yatayda tam genişlik
-                                                //                                            .padding(start = 16.dp), // Sol kenardan boşluk
                                                 style = TextStyle(
                                                     fontSize = 24.sp,
                                                     fontWeight = FontWeight.Bold,
@@ -251,8 +241,6 @@ fun BankListScreen(
                                                 textAlign = TextAlign.Start,
                                                 color = Navy,
                                                 modifier = Modifier,
-                                                //                                            .weight(1f) // Yatayda tam genişlik
-                                                //                                            .padding(start = 16.dp), // Sol kenardan boşluk
                                                 style = TextStyle(
                                                     fontSize = 24.sp,
                                                     fontWeight = FontWeight.Normal,
