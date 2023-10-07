@@ -1,5 +1,7 @@
 package com.example.enqurachallenge.screens
 
+import android.app.AlertDialog
+import android.content.Context
 import android.util.Log
 import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.Image
@@ -41,6 +43,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
@@ -52,6 +55,8 @@ import androidx.compose.ui.unit.sp
 import com.example.enqurachallenge.BankEvent
 import com.example.enqurachallenge.R
 import com.example.enqurachallenge.components.CircularProgressIndicatorWithDelay
+import com.example.enqurachallenge.components.NoBankDataDialog
+import com.example.enqurachallenge.components.NoSearchDataDialog
 import com.example.enqurachallenge.data.viewmodel.BankListViewModel
 import com.example.enqurachallenge.navigate.BankListAppRouter
 import com.example.enqurachallenge.navigate.Screen
@@ -63,11 +68,12 @@ fun BankListScreen(
     viewModel: BankListViewModel,
     onEvent: (BankEvent) -> Unit,
     colors: SearchBarColors = SearchBarDefaults.colors(
-        // İstenilen renkleri buradan ayarlayabilirsiniz
         containerColor = colorResource(id = R.color.beige),
         dividerColor = colorResource(id = R.color.navy),
     )
 ) {
+    val context = LocalContext.current // Obtain the context from the current composable
+
     val banks = viewModel.bankList.observeAsState()
     var searchQuery by remember { mutableStateOf("") }
     var active by remember { mutableStateOf(false) }
@@ -92,7 +98,7 @@ fun BankListScreen(
 
             banks.value?.isEmpty() == true -> {
                 // Empty state
-                Text(text = "No banks available.")
+                NoBankDataDialog()
             }
 
             else -> {
@@ -109,7 +115,6 @@ fun BankListScreen(
                     onSearch = {
                         items.add(searchQuery)
                         active = false
-//                        searchQuery = ""
                     },
                     active = active,
                     onActiveChange = {
@@ -186,7 +191,6 @@ fun BankListScreen(
                     ) {
                     banks?.let {
                         items(filteredBanks.size) { index ->
-                            //                        val bank = banks.value!![index]
                             val bank = filteredBanks[index]
                             println("filtered bankk: $bank")
 
@@ -221,7 +225,7 @@ fun BankListScreen(
                                                 .size(48.dp)
                                                 .padding(end = 10.dp)
                                         )
-                                        Column{
+                                        Column {
                                             Text(
                                                 text = "${bank.city}, ",
                                                 fontSize = 20.sp,
@@ -253,15 +257,24 @@ fun BankListScreen(
                                     }
                                 }
                             }
-                            //                        bank.bankBranch?.let { Text(text = it) } // Assuming 'dcAddressName' is a property of BankModel
-                            //                        bank.bankAddress?.let { Text(text = it) }
-                            //                        Divider() // Add a divider between items
                         }
+                    }?: run {
+                        showAlertDialog("Banka Bulunamadı", "Aradığınız şehir bulunamadı.", context)
                     }
                 }
             }
         }
     }
+}
+
+private fun showAlertDialog(title: String, message: String, context: Context) {
+    AlertDialog.Builder(context)
+        .setTitle(title)
+        .setMessage(message)
+        .setPositiveButton("OK") { dialog, _ ->
+            dialog.dismiss()
+        }
+        .show()
 }
 
 

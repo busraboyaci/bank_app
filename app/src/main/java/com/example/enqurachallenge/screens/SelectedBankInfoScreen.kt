@@ -38,15 +38,12 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.core.content.ContextCompat.startActivity
 import com.example.enqurachallenge.R
 import com.example.enqurachallenge.components.NavigationFloatingActionButton
-import com.example.enqurachallenge.components.OpenGoogleMaps
 import com.example.enqurachallenge.components.SelectedBankInfoScreenTopRow
 import com.example.enqurachallenge.navigate.BankListAppRouter
 import com.example.enqurachallenge.navigate.Screen
 import com.example.enqurachallenge.navigate.SystemBackButtonHandler
-import com.example.enqurachallenge.ui.theme.Beige
 import com.example.enqurachallenge.ui.theme.Navy
 import com.example.searchbar.models.BankModel
 

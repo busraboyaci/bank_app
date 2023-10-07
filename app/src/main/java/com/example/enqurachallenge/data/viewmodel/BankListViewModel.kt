@@ -7,7 +7,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.enqurachallenge.BankEvent
 import com.example.enqurachallenge.BankState
-import com.example.enqurachallenge.data.uistate.MainUiState
 import com.example.searchbar.models.BankModel
 import com.example.searchbar.models.network.BankListRepository
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -23,11 +22,8 @@ class BankListViewModel : ViewModel() {
 
     private val _banks = MutableLiveData<List<BankModel>?>(null)
     val bankList: LiveData<List<BankModel>?> = _banks
-    private var bankUIState = mutableStateOf(MainUiState())
     private val _shortType = MutableStateFlow(SortType.BANK_NAME)
-
     private val _bank = _shortType
-
 
 
     //    val event: StateFlow<BankEvent> = _event
@@ -50,9 +46,6 @@ class BankListViewModel : ViewModel() {
 
                 println("bank listeee: $banks")
             } catch (e: Exception) {
-                // Handle error
-//                _state.value = BankState.Error("An error occurred: ${e.message}")
-
             }
         }
     }

@@ -8,7 +8,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import com.example.enqurachallenge.BankEvent
-import com.example.enqurachallenge.ListBankApp
 import com.example.enqurachallenge.data.viewmodel.BankListViewModel
 import com.example.enqurachallenge.navigate.BankListAppRouter
 import com.example.enqurachallenge.navigate.Screen
@@ -22,8 +21,8 @@ fun ListBanksApp(
     onEvent: (BankEvent) -> Unit,
     context: Context
 ){
-    val state by viewModel.state.collectAsState() // ViewModel'den state'i al
-    val selectedItem = state.selectedItem // Seçili öğe
+    val state by viewModel.state.collectAsState()
+    val selectedItem = state.selectedItem
 
     Crossfade(targetState = BankListAppRouter.currentScreen, label = "") { currentState ->
         when (currentState.value) {
